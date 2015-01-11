@@ -1,3 +1,3 @@
-Robot Code Template
+Recycle Rush 2015
 =================
-The Red Crusade's base for building each year's code.
+The Red Crusade's code used during the 2015 FRC competition.
