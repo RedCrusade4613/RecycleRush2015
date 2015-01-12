@@ -1,6 +1,5 @@
 package red.crusade.templates;
 
-import red.crusade.base.RobotMap;
 import red.crusade.superclasses.CommandRC;
 
 /**
@@ -21,14 +20,14 @@ public class CommandTemplate extends CommandRC
 	//Set up what the robot will do while this command is running.
 	protected void execute() {
 	}
-	
+
 	//Code to run when the command finishes
 	protected void end() {
 		super.end();
 	}
 
 	//Determine the conditions that will stop this command.
-	protected boolean isFinished() {
-		return super.isFinished();
+	protected boolean isDone() {
+		return false;
 	}
 }

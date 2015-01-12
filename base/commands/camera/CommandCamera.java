@@ -1,13 +1,6 @@
 package red.crusade.base.commands.camera;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
-import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
-
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.AxisCamera;
-import red.crusade.base.RobotMap;
 import red.crusade.superclasses.CommandRC;
 
 /**
@@ -30,14 +23,14 @@ public class CommandCamera extends CommandRC
 		camera.axisCamera.getImage(camera.frame);
 		CameraServer.getInstance().setImage(camera.frame);
 	}
-	
+
 	//Code to run when the command finishes
 	protected void end() {
 		super.end();
 	}
 
 	//Determine the conditions that will stop this command.
-	protected boolean isFinished() {
-		return super.isFinished();
+	protected boolean isDone() {
+		return false;
 	}
 }

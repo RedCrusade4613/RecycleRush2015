@@ -1,7 +1,6 @@
 package red.crusade.base.commands.drive;
 
 import red.crusade.base.OI;
-import red.crusade.base.subsystems.SubsystemRC;
 import red.crusade.superclasses.CommandRC;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -50,7 +49,7 @@ public class CommandDrive extends CommandRC
 	}
 
 	//Determine the conditions that will stop this command.
-	protected boolean isFinished() {
+	protected boolean isDone() {
 		return false;
 	}
 }

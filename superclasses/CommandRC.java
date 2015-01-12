@@ -15,15 +15,13 @@ public abstract class CommandRC extends CommandBase
 
 	//Command to run when this command is finished
 	private CommandRC commandSequential;
-	
+
 	private boolean isWhileHeld = false;
 	private Button button;
 
 	public CommandRC(int requiredSystem) {
 		super();
-		if(requiredSystem != -1) {
-			requires(subsystemList[requiredSystem]);
-		}
+		if(requiredSystem != -1) requires(subsystemList.get(requiredSystem));
 	}
 
 	protected void initialize() {
@@ -34,8 +32,12 @@ public abstract class CommandRC extends CommandBase
 
 	protected abstract void execute();
 
-	protected boolean isFinished() {
-		return isWhileHeld ? !button.get() : false;
+	protected final boolean isFinished() {
+		return isWhileHeld ? !button.get() : false || isDone();
+	}
+
+	protected boolean isDone() {
+		return false;
 	}
 
 	protected void end() {
@@ -46,17 +48,17 @@ public abstract class CommandRC extends CommandBase
 
 	protected void interrupted() {
 	}
-	
+
 	public final CommandRC setParallel(CommandRC command) {
 		commandParallel = command;
 		return this;
 	}
-	
+
 	public final CommandRC setSequential(CommandRC command) {
 		commandSequential = command;
 		return this;
 	}
-	
+
 	public final CommandRC setCancelWhenReleased(Button button) {
 		isWhileHeld = true;
 		this.button = button;

@@ -18,7 +18,7 @@ public class CommandWait extends CommandRC
 	}
 
 	//Determine the conditions that will stop this command.
-	protected boolean isFinished() {
+	protected boolean isDone() {
 		return isTimedOut();
 	}
 }

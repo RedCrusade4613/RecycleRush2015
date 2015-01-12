@@ -12,9 +12,9 @@ public class RobotMap {
         driveMotorLID = 1,
         driveMotorRID = 0;
     
-    //Spikes
-    public static int
-    	testSpikeID = 0;
+    //Solenoids
+    public static final int
+    	testSolenoidID = 7;
         
     //Sensors
     public static final int

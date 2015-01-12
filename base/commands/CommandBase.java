@@ -1,16 +1,16 @@
 package red.crusade.base.commands;
 
+import java.util.ArrayList;
+
 import red.crusade.base.OI;
 import red.crusade.base.commands.autonomous.Autonomous;
-import red.crusade.base.commands.camera.CommandCamera;
 import red.crusade.base.commands.drive.CommandDrive;
-import red.crusade.base.commands.pneumatics.CommandPneumaticsDoNothing;
 import red.crusade.base.subsystems.SubsystemCamera;
 import red.crusade.base.subsystems.SubsystemDriver;
 import red.crusade.base.subsystems.SubsystemPneumatics;
-import red.crusade.base.subsystems.SubsystemRC;
+import red.crusade.base.subsystems.SubsystemSensors;
 import red.crusade.superclasses.CommandRC;
-import red.crusade.superclasses.SubsystemBase;
+import red.crusade.superclasses.SubsystemRC;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,14 +25,14 @@ public abstract class CommandBase extends Command
 {
 	public static OI oi;
 
-	public static SubsystemBase[] subsystemList = new SubsystemBase[] {};
+	public static ArrayList<SubsystemRC> subsystemList = new ArrayList<SubsystemRC>();
 
 	//Create an instance of each subsystem here.
 	//Just as a note, this method of subsystem setup is quite experimental, so be wary of bugs.
 	private static int id = 0;
 	public static SubsystemRC sensors = (SubsystemRC) setupNewSubsystem(new SubsystemRC(id), new CommandReadSensors(id));
 	public static SubsystemDriver driver = (SubsystemDriver) setupNewSubsystem(new SubsystemDriver(id), new CommandDrive(id));
-	public static SubsystemPneumatics pneumatics = (SubsystemPneumatics) setupNewSubsystem(new SubsystemPneumatics(id), new CommandPneumaticsDoNothing(id));
+	public static SubsystemPneumatics pneumatics = (SubsystemPneumatics) setupNewSubsystem(new SubsystemPneumatics(id), new CommandDoNothing(id));
 	public static SubsystemCamera camera = (SubsystemCamera) setupNewSubsystem(new SubsystemCamera(id), new CommandDoNothing(id));
 
 	public static Autonomous autonomous;
@@ -45,7 +45,7 @@ public abstract class CommandBase extends Command
 		autonomous = new Autonomous();
 
 		//Calls the method in SubsystemRC that starts all sensors. Do not remove.
-		SubsystemRC.initSensors();
+		SubsystemSensors.initSensors();
 
 		//Not completely sure what this does. Leave it alone as it isn't necessary.
 		SmartDashboard.putData(camera);
@@ -59,24 +59,12 @@ public abstract class CommandBase extends Command
 		super();
 	}
 
-	/*
-	 * Used when subsystem instances are created to create a complete list of subsystems.
-	 */
-	public static void addToSubsystemList(SubsystemBase subsystem) {
-		SubsystemBase[] newList = new SubsystemBase[Math.max(subsystemList.length, subsystem.systemID + 1)];
-		for(int a = 0; a < subsystemList.length; a++) {
-			newList[subsystemList[a].systemID] = subsystemList[a];
-		}
-		newList[subsystem.systemID] = subsystem;
-		subsystemList = newList;
-	}
-
-	/*
+	/**
 	 * Handles necessary procedures when creating a new subsystem.
 	 */
-	private static SubsystemBase setupNewSubsystem(SubsystemBase subsystem, CommandRC command) {
+	private static SubsystemRC setupNewSubsystem(SubsystemRC subsystem, CommandRC command) {
 		subsystem.setDefCommand(command);
 		id++;
-		return subsystemList[subsystem.systemID];
+		return subsystemList.get(subsystem.systemID);
 	}
 }

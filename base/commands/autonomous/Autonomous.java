@@ -6,18 +6,18 @@ import red.crusade.superclasses.CommandRC;
  *
  * @author Sean Zammit
  */
-public class Autonomous extends CommandRC {
+public class Autonomous extends CommandRC
+{
+	public Autonomous() {
+		super(-1);
+	}
 
-    public Autonomous() {
-        super(-1);
-    }
-    
-    //Set up what the robot will do while this command is running.
-    protected void execute() {
-    }
+	//Set up what the robot will do while this command is running.
+	protected void execute() {
+	}
 
-    //Determine the conditions that will stop this command.
-    protected boolean isFinished() {
-        return true;
-    }
+	//Determine the conditions that will stop this command.
+	protected boolean isDone() {
+		return true;
+	}
 }

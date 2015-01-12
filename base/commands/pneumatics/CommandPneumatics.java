@@ -1,8 +1,5 @@
 package red.crusade.base.commands.pneumatics;
 
-import edu.wpi.first.wpilibj.Relay.Value;
-import red.crusade.base.OI;
-import red.crusade.base.RobotMap;
 import red.crusade.superclasses.CommandRC;
 
 /**
@@ -24,7 +21,7 @@ public class CommandPneumatics extends CommandRC
 	//Set up what the robot will do while this command is running.
 	protected void execute() {
 	}
-	
+
 	//Code to run when the command finishes
 	protected void end() {
 		super.end();
@@ -32,7 +29,7 @@ public class CommandPneumatics extends CommandRC
 	}
 
 	//Determine the conditions that will stop this command.
-	protected boolean isFinished() {
-		return super.isFinished();
+	protected boolean isDone() {
+		return false;
 	}
 }
