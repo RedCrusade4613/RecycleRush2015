@@ -1,16 +1,17 @@
 package red.crusade.templates;
 
 import red.crusade.superclasses.SubsystemRC;
+import static red.crusade.base.RobotMap.*;
 
 /**
  * @author Author
  */
 public class SubsystemTemplate extends SubsystemRC
 {
-	//Set up motors here. Make sure to use the RobotMap.
+	//Set up motors and solenoids here. Make sure to use the RobotMap.
 
-	public SubsystemTemplate(int id) {
-		super(id);
+	public SubsystemTemplate() {
+		super();
 	}
 
 	public void onInit() {

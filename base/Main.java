@@ -8,9 +8,9 @@
 package red.crusade.base;
 
 import red.crusade.base.commands.CommandBase;
-import red.crusade.base.commands.CommandInterrupt;
+import red.crusade.base.commands.autonomous.Autonomous;
+import red.crusade.base.helpers.SmartDashboardHelper;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  */
 public class Main extends IterativeRobot
 {
-	Command autonomousCommand;
+	public static boolean isAuto;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any initialization code.
@@ -28,14 +28,16 @@ public class Main extends IterativeRobot
 	public void robotInit() {
 		//This initializes all subsystems
 		CommandBase.init();
-
-		//This sets the command used to begin the autonomous sequence
-		autonomousCommand = CommandBase.autonomous;
 	}
 
 	public void autonomousInit() {
+		//This sets the command used to begin the autonomous sequence
+		int av = (int) SmartDashboardHelper.getAndPutInfo("Autonomous Version", 0);
+		/*(int) SmartDashboard.getNumber("Autonomous Version", 0);
+		SmartDashboard.putNumber("Autonomous Version", av);*/
+
 		//This starts the autonomous sequence.
-		autonomousCommand.start();
+		Autonomous.autonomous[av].start();
 	}
 
 	/**
@@ -43,12 +45,10 @@ public class Main extends IterativeRobot
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		isAuto = isAutonomous();
 	}
 
 	public void teleopInit() {
-		//This SHOULD stop the autonomous sequence.
-		//TODO Currently untested.
-		new CommandInterrupt().start();
 	}
 
 	/**
@@ -56,6 +56,7 @@ public class Main extends IterativeRobot
 	 */
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		isAuto = isAutonomous();
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package red.crusade.templates;
 
 import red.crusade.superclasses.CommandRC;
+import red.crusade.superclasses.SubsystemRC;
 
 /**
  *
@@ -8,26 +9,20 @@ import red.crusade.superclasses.CommandRC;
  */
 public class CommandTemplate extends CommandRC
 {
-	public CommandTemplate(int requiredSystem) {
+	public CommandTemplate(SubsystemRC requiredSystem) {
 		super(requiredSystem);
-	}
-
-	//Code to run when the command starts
-	protected void initialize() {
-		super.initialize();
 	}
 
 	//Set up what the robot will do while this command is running.
 	protected void execute() {
 	}
-
-	//Code to run when the command finishes
-	protected void end() {
-		super.end();
-	}
-
+	
 	//Determine the conditions that will stop this command.
 	protected boolean isDone() {
 		return false;
+	}
+
+	//Turn off your motors or solenoids used in this command.
+	protected void onCompletion() {
 	}
 }

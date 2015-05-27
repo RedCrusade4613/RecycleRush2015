@@ -1,8 +1,8 @@
 package red.crusade.base.commands.drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import red.crusade.base.OI;
 import red.crusade.superclasses.CommandRC;
-import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
@@ -10,28 +10,23 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class CommandDrive extends CommandRC
 {
-	public CommandDrive(int requiredSystem) {
-		super(requiredSystem);
+	public CommandDrive() {
+		super(driver);
 	}
 
-	Joystick primaryStick = OI.stickDriver;
-	double stickX;
-	double stickY;
+	boolean arcadeDrive = false;
+	double lSpeed;
+	double rSpeed;
+	
+	final double maxChange = 0.1D;
 
 	//Set up what the robot will do while this command is running.
 	protected void execute() {
-		/*if(OI.pivotSwitch.get()) {
-		    double rotation = primaryStick.getTwist() * 2 - 1;
-		    driver.driveFront.arcadeDrive(0, rotation);
-		    driver.driveRear.arcadeDrive(0, rotation);
-		}
-		else*/{
-			stickX = primaryStick.getX();
-			stickY = primaryStick.getY();
+		if(arcadeDrive) {
+			double stickX = OI.stickDriver1.getX();
+			double stickY = OI.stickDriver1.getY();
 
-			if(OI.trigger.get()) {
-				stickY /= 2;
-			}
+			if(OI.d1_T.get()) stickY /= 2;
 			stickX *= Math.abs(stickX);
 
 			double speed = driver.isDefaultDirection ? -stickY : stickY;
@@ -46,10 +41,32 @@ public class CommandDrive extends CommandRC
 
 			driver.driveFront.arcadeDrive(speed, rotation);
 		}
+		else {
+			double leftInput = driver.isDefaultDirection ? OI.stickDriver1.getY() : -OI.stickDriver2.getY();
+			double rightInput = driver.isDefaultDirection ? OI.stickDriver2.getY() : -OI.stickDriver1.getY();
+			
+			if(lSpeed + maxChange < leftInput) lSpeed += maxChange;
+			else if(lSpeed - maxChange > leftInput) lSpeed -= maxChange;
+			else lSpeed = leftInput;
+			
+			if(rSpeed + maxChange < rightInput) rSpeed += maxChange;
+			else if(rSpeed - maxChange > rightInput) rSpeed -= maxChange;
+			else rSpeed = rightInput;
+			
+			driver.driveFront.tankDrive(lSpeed, rSpeed);
+			SmartDashboard.putNumber("Left Speed", lSpeed);
+			SmartDashboard.putNumber("Right Speed", rSpeed);
+		}
 	}
 
 	//Determine the conditions that will stop this command.
 	protected boolean isDone() {
 		return false;
+	}
+
+	//Turn off your motors or solenoids used in this command.
+	protected void onCompletion() {
+		lSpeed = 0;
+		rSpeed = 0;
 	}
 }

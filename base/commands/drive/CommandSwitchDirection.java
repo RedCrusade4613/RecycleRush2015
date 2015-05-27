@@ -4,14 +4,14 @@ import red.crusade.superclasses.CommandRC;
 
 /**
  *
- * @author Author
+ * @author Sean Zammit
  */
 public class CommandSwitchDirection extends CommandRC
 {
 	private boolean shouldForward;
 
 	public CommandSwitchDirection(boolean forward) {
-		super(driver.systemID);
+		super(driver);
 		shouldForward = forward;
 	}
 
@@ -19,12 +19,11 @@ public class CommandSwitchDirection extends CommandRC
 	protected void execute() {
 	}
 
-	//Code to run when the command finishes
-	protected void end() {
-		super.end();
+	//Turn off your motors or solenoids used in this command.
+	protected void onCompletion() {
 		driver.isDefaultDirection = shouldForward;
 	}
-
+	
 	//Determine the conditions that will stop this command.
 	protected boolean isDone() {
 		return true;

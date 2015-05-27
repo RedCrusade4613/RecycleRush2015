@@ -10,10 +10,11 @@ public class SubsystemRC extends Subsystem
 {
 	public int systemID;
 
-	public SubsystemRC(int id) {
+	public SubsystemRC() {
 		super();
-		systemID = id;
+		systemID = CommandBase.id;
 		CommandBase.subsystemList.add(this);
+		CommandBase.id++;
 	}
 
 	public final void initDefaultCommand() {

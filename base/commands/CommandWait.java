@@ -9,7 +9,7 @@ import red.crusade.superclasses.CommandRC;
 public class CommandWait extends CommandRC
 {
 	public CommandWait(double timeout) {
-		super(-1);
+		super(null);
 		setTimeout(timeout);
 	}
 
@@ -20,5 +20,9 @@ public class CommandWait extends CommandRC
 	//Determine the conditions that will stop this command.
 	protected boolean isDone() {
 		return isTimedOut();
+	}
+
+	//Turn off your motors or solenoids used in this command.
+	protected void onCompletion() {
 	}
 }

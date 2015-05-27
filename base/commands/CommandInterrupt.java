@@ -1,5 +1,7 @@
 package red.crusade.base.commands;
 
+import java.util.ArrayList;
+
 import red.crusade.superclasses.CommandRC;
 
 /**
@@ -8,24 +10,27 @@ import red.crusade.superclasses.CommandRC;
  */
 public class CommandInterrupt extends CommandRC
 {
+	public static ArrayList<CommandRC> comList = new ArrayList<CommandRC>();
+	
 	public CommandInterrupt() {
-		super(-1);
+		super(null);
+		this.setTimeout(1D);
 	}
 
 	//Set up what the robot will do while this command is running.
 	protected void execute() {
+		/*for(int a = 0; a < comList.size(); a++)
+			if(comList.get(a) != this) comList.get(a).cancel();*/
 	}
 
 	//Determine the conditions that will stop this command.
 	protected boolean isDone() {
-		return true;
+		return true;//isTimedOut();
 	}
 
-	//Called once after the command is finished.
-	protected void end() {
-		//Hasn't been tested.
-		for(int a = 0; a < subsystemList.size(); a++) {
-			subsystemList.get(a).getCurrentCommand().cancel();
-		}
+	//Turn off your motors or solenoids used in this command.
+	protected void onCompletion() {
+		for(int a = 0; a < comList.size(); a++)
+			if(comList.get(a) != this) comList.get(a).cancel();
 	}
 }

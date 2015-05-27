@@ -1,27 +1,27 @@
 package red.crusade.base.subsystems;
 
-import red.crusade.base.RobotMap;
 import red.crusade.superclasses.SubsystemRC;
 import edu.wpi.first.wpilibj.RobotDrive;
+import static red.crusade.base.RobotMap.*;
 
 /**
- * @author Author
+ * @author Sean Zammit
  */
 public class SubsystemDriver extends SubsystemRC
 {
-	public double currentSpeed = 0;
+	/*public double currentSpeed = 0;
 	public double currentRotation = 0;
 
-	public final double allowedChange = 2;
+	public final double allowedChange = 0.2D;*/
 
 	public boolean isDefaultDirection;
 
 	//Set up motors and solenoids here. Make sure to use the RobotMap.
-	public RobotDrive driveFront = new RobotDrive(RobotMap.driveMotorLID, RobotMap.driveMotorRID);
+	public RobotDrive driveFront = new RobotDrive(driveMotorLID, driveMotorRID);
 
-	public SubsystemDriver(int id) {
-		super(id);
-		isDefaultDirection = true;
+	public SubsystemDriver() {
+		super();
+		isDefaultDirection = false;
 	}
 
 	public void onInit() {
